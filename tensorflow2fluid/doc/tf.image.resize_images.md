@@ -22,27 +22,18 @@ paddle.fluid.layers.image_resize(
     resample='BILINEAR', 
     actual_shape=None, 
     align_corners=True, 
-    align_mode=1)
+    align_mode=1
+)
 ```
 
 #### 功能差异：
-##### 参数类型差异：
-tensorflow：使用`axis`指定要增加维度的位置，支持负数进行索引，并且`axis`可以是python scalar也可以是`tf.tensor`；  
-
-paddlepaddle：使用`axes`表示要增加维度的位置列表，支持在多个位置同时增加维度，也支持负数进行索引，但是`axes`只能是python list。
-
+##### 参数种类：
+tensorflow：支持`BILINEAR`,`NEAREST`,`BICUBIC`, `AREA`四种方式；`preserve_aspect_ratio`设为True后，输入的图像大小长宽比与输入保持一致  
+paddlepaddle：支持`BILINEAR`和`NEAREST`两种方式， `align_mode`是`BILINEAR`的可选项，当为1的时候，与TensorFlow功能一致
 
 #### paddlepaddle示例:
 ```python
+# 输
 # 输入 tensor t 的 shape 为[3, 4]
-
-# 输出 tensor out 的 shape 为[1, 3, 4]
-out = fluid.layers.unsqueeze(t, [0])  
-
-# 输出 tensor out 的 shape 为[3, 4, 1]
-out = fluid.layers.unsqueeze(t, [-1])
-
-# 输出 tensor out 的 shape 为[1, 1，3, 4]
-out = fluid.layers.unsqueeze(t, [0, 1])  
 ```
 
