@@ -26,8 +26,20 @@ paddle.fluid.layers.dropout(
 ```
 
 #### 功能差异：
-tensorflow：使用rate表示保留为0的概率；使用noise_shape来设置dropout的独立性；  
-paddlepaddle：使用dropout_prob表示保留为0的概率；通过设置is_test来打开或关闭dropout，通常用户可以结合default_main_program的clone方法，来设置is_test的值；不支持dropout独立性设置；另外通过设置dropout_implementation，还可以设定dropout的具体实现方式：当设定为"upscale_in_train"时，被保留的元素会乘上一个scale系数，保持输出与输入的所有元素均值一致，该方式与tensorflow的实现一致。
+##### 丢弃概率
+tensorflow：使用`keep_prob`表示保留单元输出的概率，等价于`1-rate`；  
+
+paddlepaddle：使用`dropout_prob`表示将单元输出设置为0的概率，即其丢弃概率；
+
+##### dropout独立性
+tensorflow：通过设置一个可以广播到x的`noise_shape`，可以控制dropout的独立性；  
+
+paddlepaddle：暂无此设置。
+
+##### 实现方式
+tensorflow：在训练时，被保留的单元输出要乘上`1/keep_prob`的系数，而在测试时，直接关闭dropout。
+
+paddlepaddle：通过设置`dropout_implementation`有不同的实现。当设置为`downgrade_in_infer`时，在训练时，保留单元直接被输出，而测试时所有单元乘以`1-dropout_prob`的系数；当设置为`upgrade_in_train`时，则与tensorflow的实现一致。
 
 #### paddlepaddle示例:
 ```python
