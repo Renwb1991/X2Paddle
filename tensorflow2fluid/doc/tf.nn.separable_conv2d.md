@@ -21,7 +21,8 @@ PaddlePaddle中目前无对应接口，可使用如下代码实现，在如下�
 # TensorFlow中separable_conv2d的使用
 depthwise_filter = tf.random_uniform([4, 4, 3, 1], 0.0, 1.0)
 pointwise_filter = tf.random_uniform([1, 1, 3, 5], 0.0, 1.0)
-result = tf.nn.separable_conv2d(input, depthwise_filter, pointwise_filter, strides=[1, 1, 1, 1], padding='VALID')
+result = tf.nn.separable_conv2d(input, depthwise_filter, pointwise_filter, 
+                        strides=[1, 1, 1, 1], padding='VALID')
 
 # PaddlePaddle中实现separable_conv2d
 depthwise_result = fluid.layers.conv2d(input, [4, 4], 
