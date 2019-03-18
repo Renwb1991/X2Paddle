@@ -1,6 +1,6 @@
 ## tf.nn.separable_conv2d
 
-### [tf.math.rsqrt](https://www.tensorflow.org/api_docs/python/tf/nn/separable_conv2d)
+### [tf.nn.separable_conv2d](https://www.tensorflow.org/api_docs/python/tf/nn/separable_conv2d)
 ``` python
 tf.nn.separable_conv2d(
     input,
