@@ -24,7 +24,10 @@ pointwise_filter = tf.random_uniform([1, 1, 3, 5], 0.0, 1.0)
 result = tf.nn.separable_conv2d(input, depthwise_filter, pointwise_filter, 
                         strides=[1, 1, 1, 1], padding='VALID')
 
-# PaddlePaddle中实现separable_conv2d
-depthwise_result = fluid.layers.conv2d(input, [4, 4], 
+# PaddlePaddle中对应如上代码实现separable_conv2d
+depthwise_result = fluid.layers.conv2d(input, 3, filter_size=[4, 4], 
+                                stride=[1, 1], groups=3, bias_attr=False)
+pointwise_result = fluid.layers.conv2d(depthwise_result, filter_size=[1, 1], 
+                                stride=[1, 1], bias_attr=False)
 
 ```
