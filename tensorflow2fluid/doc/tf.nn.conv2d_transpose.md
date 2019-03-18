@@ -68,6 +68,8 @@ output_size = (input_size - 1) * stride - 2 * padding + dilation * (kernel - 1) 
 
 ## paddlepaddle示例:
 ```python
+# TensorFlow使
+```python
 # 结合pad2d，实现SAME方式的padding
 # 输入Shape：(None, 3, 200, 200)
 # 输出Shape：(None, 5， 67， 67）
