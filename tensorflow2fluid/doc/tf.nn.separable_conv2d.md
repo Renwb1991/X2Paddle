@@ -1,0 +1,35 @@
+## tf.nn.separable_conv2d
+
+### [tf.math.rsqrt](https://www.tensorflow.org/api_docs/python/tf/nn/separable_conv2d)
+``` python
+tf.nn.separable_conv2d(
+    input,
+    depthwise_filter,
+    pointwise_filter,
+    strides,
+    padding,
+    rate=None,
+    name=None,
+    data_format=None
+)
+```
+
+### PaddlePaddle实现
+PaddlePaddle中目前无对应接口，可使用如下代码实现，在如下代码中只考虑了基本的`strides`参数，其它参数如`padding`在PaddlePaddle中使用机制
+以及输入输出和卷积核格式与TensorFlow存在差异，可参考文档[tf.layers.conv2d](tf.layers.conv2d.md)和[tf.nn.depthwise_conv2d](tf.nn.depthwise_conv2d]中的说明
+``` python
+# TensorFlow中separable_conv2d的使用
+depthwise_filter = tf.random_uniform([4, 4, 3, 1], 0.0, 1.0)
+pointwise_filter = tf.random_uniform([1, 1, 3, 5], 0.0, 1.0)
+result = tf.nn.separable_conv2d(input, depthwise_filter, pointwise_filter, strides=[1, 1, 1, 1], padding='VALID')
+
+# PaddlePaddle中实现separable_conv2d
+depthwise_result = fluid.layers.conv2d(input, [4, 4], 
+
+### 代码示例
+``` python
+inputs = fluid.layers.data(dtype='float32', shape=[1000], name='inputs')
+
+# 调用上述自定义函数
+result = rsqrt(inputs)
+```
