@@ -53,6 +53,19 @@ pad_right = pad_size - pad_left
 ```
 PaddlePaddle：`padding`参数表示在输入图像四周padding的size大小
 
+#### 输出大小
+TensorFlow：当padding为`SAME`和`VALID`两种情况下，输出大小计算方式如下所示
+```python
+if padding == 'SAME':
+    output_size = (input_size - 1) * stride
+elif padding == 'VALID':
+    output_size = (input_size - 1) * stride + kernel - 1
+```
+PaddlePaddle: 输出大小计算公式如下，差异主要由于TensorFlow在`conv2d_transpose`的最后还存在**裁剪**步骤，因此可参考示例代码，调用`crop`解决
+```python
+output_size = (input_size - 1) * stride - 2 * padding + dilation * (kernel - 1) + 1
+```
+
 ## paddlepaddle示例:
 ```python
 # 结合pad2d，实现SAME方式的padding
