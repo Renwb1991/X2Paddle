@@ -77,7 +77,7 @@ batch = tf.shape(inputs)[0]
 result = tf.nn.conv2d_transpose(inputs, filter, output_shape=[batch, 40, 40, 3], 
                          strides=[1, 2, 2, 1], padding='SAME')
 
-#PaddlePaddlewg使用conv2d_transpose
+#PaddlePaddle中使用conv2d_transpose
 # 输入Shape：(None, 3, 20, 20)
 inputs = fluid.layers.data(dtype='float32', shape=[3, 200, 200], name='inputs)
 # conv2d_transpose输出shape:[-1, 3, 41, 41]
