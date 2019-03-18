@@ -70,16 +70,17 @@ output_size = (input_size - 1) * stride - 2 * padding + dilation * (kernel - 1) 
 ```python
 # TensorFlow使用conv2d_transpose
 # 输入shape: [-1, 20, 20, 3]
-#
 inputs = tf.placeholder(dtype=tf.float32, shape=[None, 20, 20, 3])
-filter = tf.random_uniform(shape=[4, 4, 3, 3], 0.0， 1.0)
+filter = tf.random_uniform(shape=[5, 5, 3, 3], 0.0， 1.0)
 batch = tf.shape(inputs)[0]
-result = tf.nn.conv2d_transpose(inputs, filter, output_shape=[batch, 40, 40, 3], strides=[1, 2, 2, 1]
+# conv2d_transpose输出shape: [-1, 40, 40, 3]
+result = tf.nn.conv2d_transpose(inputs, filter, output_shape=[batch, 40, 40, 3], 
+                         strides=[1, 2, 2, 1], padding='SAME')
 
-# 结合pad2d，实现SAME方式的padding
-# 输入Shape：(None, 3, 200, 200)
-# 输出Shape：(None, 5， 67， 67）
-# 卷积核Shape: (5, 3, 4, 4)
-inputs = paddle.fluid.layers.data(dtype='float32', shape=[3, 200, 200], name='inputs)
-pad_inputs = paddle.fluid.layers.pad2d(inputs, paddings=[1, 2, 1, 2])
-outputs = paddle.fluid.layers.conv2d(pad_inputs, 5, [4, 4], (1, 1))
+#PaddlePaddlewg使用conv2d_transpose
+# 输入Shape：(None, 3, 20, 20)
+inputs = fluid.layers.data(dtype='float32', shape=[3, 200, 200], name='inputs)
+# conv2d_transpose输出shape:[-1, 3, 41, 41]
+outputs = fluid.layers.conv2d(pad_inputs, 5, [4, 4], (1, 1))
+# 裁剪后结果即为与TensorFlow一致
+outputs = fluid.layers.crop(outputs, shape=[-1, 3, 40, 40])
