@@ -77,19 +77,20 @@ output_size = (input_size - 1) * stride - 2 * padding + dilation * (kernel - 1) 
 
 ## paddlepaddle示例:
 ```python
-# TensorFlow使用conv2d_transpose
-# 输入shape: [-1, 20, 20, 3]
-inputs = tf.placeholder(dtype=tf.float32, shape=[None, 20, 20, 3])
-filter = tf.random_uniform(shape=[5, 5, 3, 3], 0.0， 1.0)
+# TensorFlow使用conv3d_transpose
+# 输入shape: [-1, 5， 20, 40, 3]
+inputs = tf.placeholder(dtype=tf.float32, shape=[None, 5， 20, 40, 3])
+filter = tf.random_uniform(shape=[2, 4, 5, 7， 3], 0.0， 1.0)
 batch = tf.shape(inputs)[0]
-# conv2d_transpose输出shape: [-1, 40, 40, 3]
-result = tf.nn.conv2d_transpose(inputs, filter, output_shape=[batch, 40, 40, 3], 
-                         strides=[1, 2, 2, 1], padding='SAME')
+# conv2d_transpose输出shape: [-1, 5, 40, 80， 7]
+result = tf.nn.conv2d_transpose(inputs, filter, output_shape=[batch, 5, 40, 80， 7], 
+                         strides=(1, 2, 2), padding='SAME')
 
-#PaddlePaddle中使用conv2d_transpose
-# 输入Shape：(None, 3, 20, 20)
-inputs = fluid.layers.data(dtype='float32', shape=[3, 200, 200], name='inputs)
-# conv2d_transpose输出shape:[-1, 3, 41, 41]
-outputs = fluid.layers.conv2d(pad_inputs, 5, [4, 4], (1, 1))
+#PaddlePaddle中使用conv3d_transpose
+# 输入Shape：(None, 3, 5, 20, 40)
+inputs = fluid.layers.data(dtype='float32', shape=[3, 5, 20, 40], name='inputs)
+# conv3d_transpose输出shape:[-1, 7, 6, 40, 81]
+outputs = fluid.layers.conv3d(inputs, 7, filter_size=(2, 4, 5), stride=(1, 2, 2), 
+                        padding=(0, 1, 1), bias_attr=False)
 # 裁剪后结果即为与TensorFlow一致
-outputs = fluid.layers.crop(outputs, shape=[-1, 3, 40, 40])
+outputs = fluid.layers.crop(outputs, shape=[-1, 7, 5, 40, 80])
