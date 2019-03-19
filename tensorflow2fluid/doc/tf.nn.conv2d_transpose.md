@@ -81,6 +81,7 @@ result = tf.nn.conv2d_transpose(inputs, filter, output_shape=[batch, 40, 40, 3],
 # 输入Shape：(None, 3, 20, 20)
 inputs = fluid.layers.data(dtype='float32', shape=[3, 20, 20], name='inputs)
 # conv2d_transpose输出shape:[-1, 3, 41, 41]
-outputs = fluid.layers.conv2d(pad_inputs, 5, [4, 4], (1, 1))
+outputs = fluid.layers.conv2d_transpose(pad_inputs, 3, filter_size=[5, 5], 
+                        padding=[1, 1],  stride=[2, 2], bias_attr=False)
 # 裁剪后结果即为与TensorFlow一致
 outputs = fluid.layers.crop(outputs, shape=[-1, 3, 40, 40])
