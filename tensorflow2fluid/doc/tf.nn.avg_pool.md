@@ -52,6 +52,7 @@ PaddlePaddle：在输入的上、下、左、右分别padding，size大小为`po
 inputs = fluid.layers.data(dtype='float32', shape=[3, 300, 300], name='inputs')
 
 # 计算得到输入的长、宽对应padding size为1
-# 在最右、最下进行padding
+# 当Tensorflow中padding为SAME时，可能会两侧padding的size不同，可调用pad2d对齐
+pad_res = fluid.layers.pad2d(inputs, paddings=[0, 1, 0, 1])
 conv_res = fluid.layers.pool2d(pad_res, pool_size=3, pool_type='avg', padding=[1, 1], pool_stride=2)
 ```
