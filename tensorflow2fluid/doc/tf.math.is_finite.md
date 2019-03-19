@@ -16,15 +16,19 @@ paddle.fluid.layers.isfinite(x)
 
 ### 功能差异：
 
-#### 输
+#### 输出格式
+TensorFlow: 返回elementwise检查的结果，即输出与输入shape一致
+PaddlePaddle: 返回结果仅包含一个boolean值，若输入数据中均为`infinite`，则返回True，否则返回False
 
 ## paddlepaddle示例:
 ```python
-# 示例1 
-# 结合pad2d，实现SAME方式的padding
-# 输入Shape：(None, 3, 200, 200)
-# 输出Shape：(None, 5， 67， 67）
-# 卷积核Shape: (5, 3, 4, 4)
-inputs = paddle.fluid.layers.data(dtype='float32', shape=[3, 200, 200], name='inputs)
-pad_inputs = paddle.fluid.layers.pad2d(inputs, paddings=[1, 2, 1, 2])
-outputs = paddle.fluid.layers.conv2d(pad_inputs, 5, [4, 4], (1, 1))
+# TensorFlow示例
+# 输入[2.1, 3.2, 4.5]
+# 输出[True, True, True]
+result = tf.is_finite(inputs)
+
+# PaddlePaddle示例
+# 输入[2.1, 3.2, 4.5]
+# 输出True
+result = fluid.layers.isfinite(inputs)
+```
