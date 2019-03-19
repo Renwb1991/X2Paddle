@@ -21,8 +21,8 @@ paddle.fluid.layers.topk(
 ```
 
 #### 功能差异：
-tensorflow：通过设置sorted，对返回的值与下标设置是否进行降序排序；k默认为1。  
-paddlepaddle：对返回的top-k tensor进行降序排序；k没有默认值，必须设置。
+TensorFlow: 通过设置sorted，对返回的值与下标设置是否进行降序排序；k默认为1。  
+PaddlePaddle: 对返回的top-k tensor进行降序排序；k没有默认值，必须设置。
 
 #### paddlepaddle示例:
 ```python
