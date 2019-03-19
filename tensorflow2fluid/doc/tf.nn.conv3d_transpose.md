@@ -37,7 +37,13 @@ paddle.fluid.layers.conv3d_transpose(
 
 #### 数据格式
 
-TensorFlow: 默认且目前主流tensorflow模型的输入数据格式为`NHWC`，即表示`(batch，height, width, in_channels)`；
+TensorFlow: 默认输入数据格式为`NDHWC`，表示`(batch，depth, height, width, in_channels)`， 同时也将`data_format`参数设为`channels_first`，支持`NCDHW`格式的数据输入。其中输入、输出、卷积核对应关系如下表所示，
+
+| 输入 | 卷积核 | 输出 |
+|--------------------|-------------------|------------------|
+|NDHWC | AFD| asdf|
+|NCDHW | asdf | asdf|
+
 对应输出格式为`(batch, height, width, filters_num)`；卷积核的格式则为`(filter_height, filter_width, in_channels, filters_num)`  
 PaddlePaddle：输入数据格式为`NCHW`；输出格式`(batch, filters_num, height, width)`；卷积核格式`(filters_num, in_channels, filter_height, filter_width)`
 
