@@ -79,7 +79,7 @@ result = tf.nn.conv2d_transpose(inputs, filter, output_shape=[batch, 40, 40, 3],
 
 #PaddlePaddle中使用conv2d_transpose
 # 输入Shape：(None, 3, 20, 20)
-inputs = fluid.layers.data(dtype='float32', shape=[3, 200, 200], name='inputs)
+inputs = fluid.layers.data(dtype='float32', shape=[3, 20, 20], name='inputs)
 # conv2d_transpose输出shape:[-1, 3, 41, 41]
 outputs = fluid.layers.conv2d(pad_inputs, 5, [4, 4], (1, 1))
 # 裁剪后结果即为与TensorFlow一致
