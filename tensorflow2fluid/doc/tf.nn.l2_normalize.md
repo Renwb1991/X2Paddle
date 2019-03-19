@@ -28,13 +28,9 @@ paddle.fluid.layers.l2_normalize(
 
 ##### 计算公式
 
-Tensorflow：公式为output = x / sqrt(max(sum(x^2), epsilon));  
+TensorFlow：计算公式如下所示，output = x / sqrt(max(sum(x^2), epsilon));  
 PaddlePaddle：公式为output = x / sqrt(sum(x^2) + epsilon))。
 
-##### 参数类型
-
-Tensorflow：`axis`参数可以是scalar和list；  
-PaddlePaddle：`axis`参数只能是scalar。
 
 #### paddlepaddle代码示例
 ```
@@ -42,6 +38,4 @@ PaddlePaddle：`axis`参数只能是scalar。
 
 # out同样是shape[3,2]的张量，axis设置为1，表示将x中每个行向量做归一化
 out = fluid.layers.l2_normalize(x, axis=1)
-
-
 ```
