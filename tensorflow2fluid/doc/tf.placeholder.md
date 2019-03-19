@@ -24,10 +24,9 @@ paddle.fluid.layers.data(
 
 ### 功能差异：
 #### 参数种类：
-&#160; &#160; &#160; &#160;tensorflow中，使用placeholder创建一个类型为dtype，形状为shape的输入tensor，对于shape中的batch维度，需要用户使用None指定；
-paddlepaddle也有类似参数，但是paddlepaddle默认在第0维为用户插入batch维度，在特殊情形下，用户也可以将append_batch_size设置为False，并使用-1在shape中指定
-batch维度所在的位置。paddlepaddle
-中的lod_level是paddlepaddle高级特性，普通用户可以暂不理会。
+TensorFlow: 使用placeholder创建一个类型为dtype，形状为shape的输入tensor，对于shape中的batch维度，需要用户使用None指定；
+PaddlePaddle: p默认在第0维为用户插入batch维度，在特殊情形下，用户也可以将append_batch_size设置为False，并使用-1在shape中指定
+batch维度所在的位置。
 
 
 ## paddlepaddle示例:
