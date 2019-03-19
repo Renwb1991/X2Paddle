@@ -14,7 +14,7 @@ tf.nn.conv3d_transpose(
 )
 ```
 
-### [paddle.fluid.layers.conv2d_transpose](http://paddlepaddle.org/documentation/docs/zh/1.3/api_cn/layers_cn.html#permalink-48-conv3d_transpose)
+### [paddle.fluid.layers.conv3d_transpose](http://paddlepaddle.org/documentation/docs/zh/1.3/api_cn/layers_cn.html#permalink-48-conv3d_transpose)
 ``` python
 paddle.fluid.layers.conv3d_transpose(
     input, 
@@ -41,11 +41,8 @@ TensorFlow: 默认输入数据格式为`NDHWC`，表示`(batch，depth, height, 
 
 | 输入 | 卷积核 | 输出 |
 |--------------------|-------------------|------------------|
-|NDHWC | AFD| asdf|
-|NCDHW | asdf | asdf|
-
-对应输出格式为`(batch, height, width, filters_num)`；卷积核的格式则为`(filter_height, filter_width, in_channels, filters_num)`  
-PaddlePaddle：输入数据格式为`NCHW`；输出格式`(batch, filters_num, height, width)`；卷积核格式`(filters_num, in_channels, filter_height, filter_width)`
+|NDHWC | (kernel_d, kernel_h, kernel_w, filters_num, in_channels)| (batch, out_d, out_h, out_w, filters_num)|
+|NCDHW | (kernel_d, kernel_h, kernel_w, filters_num, in_channels) | (batch, filters_num, out_d, out_h, out_w)|
 
 #### Padding机制
 TensorFlow: `SAME`和`VALID`两种选项。当为`SAME`时，padding的计算方式如下所示
