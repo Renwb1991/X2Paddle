@@ -21,33 +21,32 @@ paddle.fluid.layers.DynamicRNN(name=None)
 ```
 
 ### 功能差异
-#### 1. 调用机制差异
-&#160; &#160; &#160; &#160;Tensorflow中，`tf.nn.dynamic_rnn`通常与`tf.nn.rnn_cell.LSTMCell`、`tf.nn.rnn_cell.GRUCell`等Cell结合使用；而在paddlepaddle中，使用`paddle.fluid.layers.DynamicRNN`类实现类似功能 ，通过DynamicRNN提供的类方法，用户可以在`with block`中方便地自定义每个时间步的处理过程。
+#### 调用机制
+Tensorflow: `tf.nn.dynamic_rnn`通常与`tf.nn.rnn_cell.LSTMCell`、`tf.nn.rnn_cell.GRUCell`等Cell结合使用  
+PaddlePaddle: 使用`paddle.fluid.layers.DynamicRNN`类实现类似功能 ，通过DynamicRNN提供的类方法，用户可以在`with block`中方便地自定义每个时间步的处理过程。
 
-#### 2. 输入差异
-&#160; &#160; &#160; &#160;Tensorflow中，`tf.nn.dynamic_rnn`输入为序列数据，批输入中的每个序列需要填充到相同的长度；而在paddlepaddle中，使用
+#### 输入格式
+TensorFlow: `tf.nn.dynamic_rnn`输入为序列数据，批输入中的每个序列需要填充到相同的长度
+PaddlePaddle: 使用
 [LoDTensor](http://www.paddlepaddle.org/documentation/docs/zh/1.2/user_guides/howto/basic_concept/lod_tensor.html)表示一个批输入，用户在使用时不需要进行填充操作。
 
-Tensorflow
+### 代码示例
+
 ```
+# TensorFlow代码示例
 # 创建 BasicRNNCell
 rnn_cell = tf.nn.rnn_cell.BasicRNNCell(hidden_size)
-
 # 定义初始隐状态
 initial_state = rnn_cell.zero_state(batch_size, dtype=tf.float32)
-
 # 输出shape为（batch_size, max_time, cell_state_size）
 # 最后时刻隐状态shape为（batch_size, cell_state_size）
 outputs, state = tf.nn.dynamic_rnn(rnn_cell, input_data,
                                    initial_state=initial_state,
                                    dtype=tf.float32)
-```
 
-paddlepaddle
-```
+# PaddlePaddle代码示例
 # 创建一个DynamicRNN对象
 drnn = fluid.layers.DynamicRNN()
-
 # 定义一个类似BasicRNNCell的处理过程
 with drnn.block():
     # 设置drnn的序列输入，并取得当前步的输入
@@ -72,9 +71,8 @@ outputs = drnn()
 state = fluid.layers.sequence_last_step(outputs)
 ```
 
-### 其他相关op
+### 其他
 
-&#160; &#160; &#160; &#160;为了简化用户定义动态RNN的过程，paddle有如下op可供选择：
+为了简化用户定义动态RNN的过程，paddle有如下op可供选择：
 - [paddle.fluid.layers.dynamic_lstm](http://www.paddlepaddle.org/documentation/docs/zh/1.2/api_cn/layers_cn.html#dynamic-lstm)：相当于  `tf.nn.dynamic_rnn`结合`tf.nn.rnn_cell.LSTMCell`
 - [paddle.fluid.layers.dynamic_gru](http://www.paddlepaddle.org/documentation/docs/zh/1.2/api_cn/layers_cn.html#dynamic-gru)：相当于`tf.nn.dynamic_rnn`结合`tf.nn.rnn_cell.GRUCell`
-
