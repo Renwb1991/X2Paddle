@@ -44,6 +44,12 @@ TensorFlow: 默认输入数据格式为`NDHWC`，表示`(batch，depth, height, 
 |NDHWC | (kernel_d, kernel_h, kernel_w, filters_num, in_channels)| (batch, out_d, out_h, out_w, filters_num)|
 |NCDHW | (kernel_d, kernel_h, kernel_w, filters_num, in_channels) | (batch, filters_num, out_d, out_h, out_w)|
 
+PaddlePaddle: 只支持输入数据格式为`NCHWC`，且**卷积核格式**与TensorFlow不同，其中输入、输出、卷积核对应关系如下表所示：
+
+| 输入 | 卷积核 | 输出 |
+|--------------------|-------------------|------------------|
+|NCDHW | (in_channels, filters_num, kernel_d, kernel_h, kernel_w) | (batch, filters_num, out_d, out_h, out_w)|
+
 #### Padding机制
 TensorFlow: `SAME`和`VALID`两种选项。当为`SAME`时，padding的计算方式如下所示
 ```python
