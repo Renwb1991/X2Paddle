@@ -23,9 +23,9 @@ layers.one_hot(
 ```
 
 #### 功能差异：
-tensorflow：indices shape 没有限定；支持设置on与off的值；支持使用axis设置depth维所处位置。
+TensorFlow：indices shape 没有限定；支持设置on与off的值；支持使用axis设置depth维所处位置。
 
-paddlepaddle：input 必须是二维tensor，shape为(batch, 1)；depth必须是python int标量；限定on与off value为1和0。
+PaddlePaddle：input 必须是二维tensor，shape为(batch, 1)；depth必须是python int标量；限定on与off value为1和0。
 
 #### paddlepaddle示例:
 ```python
