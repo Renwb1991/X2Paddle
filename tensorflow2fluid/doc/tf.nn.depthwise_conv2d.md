@@ -39,9 +39,18 @@ paddle.fluid.layers.conv2d(
 
 #### 数据格式
 
-TensorFlow: 默认且目前主流tensorflow模型的输入数据格式为`NHWC`，即表示`(batch，in_height, in_width, in_channels)`；
-卷积核的格式为`(filter_height, filter_width, in_channels, channel_multiplier)`;对应输出格式为`(batch, out_height, out_width, in_channel*channel_multiplier)`；  
-PaddlePaddle：输入数据格式为`NCHW`；卷积核格式`(filters_num, in_channels/groups, filter_height, filter_width)`；输出格式`(batch, filters_num, height, width)`
+TensorFlow：默认输入数据格式为`NHWC`，表示`(batch, height, width, in_channels)`， 同时也将`data_format`参数设为`channels_first`，支持`NCHW`格式的数据输入。其中输入、输出、卷积核对应关系如下表所示，
+
+| 输入 | 卷积核 | 输出 |
+|--------------------|-------------------|------------------|
+|NHWC | (kernel_h, kernel_w, in_channels, channel_multiplier)| (batch, out_h, out_w, in_channel*channel_multiplier)|
+|NCHW | (kernel_h, kernel_w, in_channels, channel_multiplier) | (batch, in_channel*channel_multiplier, out_h, out_w)|
+
+PaddlePaddle: 只支持输入数据格式为`NCHW`，且**卷积核格式**与TensorFlow不同，其中输入、输出、卷积核对应关系如下表所示，
+
+| 输入 | 卷积核 | 输出 |
+|--------------------|-------------------|------------------|
+|NCHW | (filters_num, in_channels/groups, kernel_h, kernel_w) | (batch, filters_num, out_h, out_w)|
 
 #### Padding机制
 TensorFlow: `SAME`和`VALID`两种选项。当为`SAME`时，padding的计算方式如下所示
