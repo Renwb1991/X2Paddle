@@ -26,13 +26,13 @@ tf.nn.rnn_cell.LSTMCell(
 
 ```python
 paddle.fluid.layers.lstm_unit(
-		x_t, 
-		hidden_t_prev, 
-		cell_t_prev, 
-		forget_bias=0.0, 
-		param_attr=None, 
-		bias_attr=None, 
-		name=None
+    x_t, 
+    hidden_t_prev, 
+    cell_t_prev, 
+    forget_bias=0.0, 
+    param_attr=None, 
+    bias_attr=None, 
+    name=None
 )
 ```
 
