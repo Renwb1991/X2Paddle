@@ -22,11 +22,10 @@ paddle.fluid.layers.reshape(
 ```
 
 ### 功能差异：
-#### 参数类型差异：
-&#160; &#160; &#160; &#160;tensorflow中，shape 可以是python list，也可以是变量类型；paddlepaddle中，shape 只能是python list。可选参数actual_shape支持变量类型，其优先级高于shape。需要注意的是，在设置actual_shape的时候，也要正确设置shape以便正常通过paddle编译阶段。
 
-#### shape标记差别：
-&#160; &#160; &#160; &#160;tensorflow中，shape 中可以使用单独一个-1，表示待推断的维度；paddlepaddle中，shape 中除了可以使用单独一个-1表示待推断维度外，还能使用0，表示在输入tensor原来的shape中对应位置的维度。注意，0的下标不能超过原来tensor的rank。
+#### shape标记差别
+TensorFlow: shape 中可以使用单独一个-1，表示待推断的维度；
+PaddlePaddle: shape 中除了可以使用单独一个-1表示待推断维度外，还能使用0，表示在输入tensor原来的shape中对应位置的维度。注意，0的下标不能超过原来tensor的rank。
 
 
 ## paddlepaddle示例:
